@@ -137,7 +137,10 @@ body {
 
 .hero-logo {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
   margin-bottom: 40px;
   animation: fadeUp 0.8s ease 0.1s both;
 }
@@ -621,6 +624,28 @@ footer .footer-logo {
   margin-bottom: 8px;
 }
 
+/* ── Header Logos Row ── */
+.header-logos {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.05s both;
+}
+
+.partner-logo-img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logos-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--dark-border);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .hero, section { padding: 48px 24px; }
@@ -670,6 +695,221 @@ footer .footer-logo {
 /* ── Bold highlight ── */
 b, strong { color: var(--white); font-weight: 600; }
 
+/* ═══════════════════════════════════════════════
+   PRINT / PDF STYLES
+   ═══════════════════════════════════════════════ */
+@media print {
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm 16mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #222222 !important;
+    font-size: 10pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* ── Kill decorative / animated elements ── */
+  .pixel-bg,
+  .hero-pixel-grid,
+  .hero::before { display: none !important; }
+
+  .reveal,
+  .hero-badge,
+  .hero-logo,
+  .header-logos,
+  .hero h1,
+  .hero-desc,
+  .toc {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: auto !important;
+    padding: 24pt 0 16pt !important;
+    background: #ffffff !important;
+    page-break-after: always;
+  }
+
+  .hero h1 { font-size: 22pt !important; color: #111111 !important; }
+  .hero h1 .accent { color: #2855FF !important; }
+  .hero-desc { color: #444444 !important; font-size: 10pt !important; }
+
+  .hero-badge {
+    border-color: #cccccc !important;
+    background-color: #f0f0f0 !important;
+    color: #666666 !important;
+  }
+  .hero-badge .dot { background-color: #2855FF !important; }
+
+  .hero-logo-text { background-color: #111111 !important; color: #ffffff !important; }
+  .hero-logo-sub { color: #111111 !important; }
+  .hero-logo-text::after { background-color: #2855FF !important; }
+
+  /* ── TOC ── */
+  .toc a {
+    background-color: #EEEEF4 !important;
+    border: 1px solid #cccccc !important;
+    color: #333333 !important;
+    font-size: 8pt !important;
+    padding: 3pt 8pt !important;
+    text-decoration: none !important;
+  }
+
+  /* ── Sections ── */
+  section {
+    padding: 16pt 0 !important;
+    max-width: 100% !important;
+  }
+
+  .content { max-width: 100% !important; padding: 0 !important; }
+
+  section h2 { font-size: 16pt !important; color: #111111 !important; page-break-after: avoid; }
+  section h3 { font-size: 12pt !important; color: #222222 !important; page-break-after: avoid; }
+  section p  { color: #333333 !important; font-size: 10pt !important; max-width: 100% !important; }
+
+  .section-label { color: #2855FF !important; font-size: 8pt !important; }
+  .section-label::before { background-color: #2855FF !important; }
+
+  /* ── Cards ── */
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8pt !important;
+  }
+
+  .card {
+    background-color: #F4F4F8 !important;
+    border: 1px solid #D0D0D8 !important;
+    padding: 12pt !important;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  .card:hover { transform: none !important; box-shadow: none !important; }
+  .card::before { display: none !important; }
+  .card h4 { color: #222222 !important; font-size: 10pt !important; }
+  .card p  { color: #555555 !important; font-size: 9pt !important; }
+  .card-icon { background-color: #E8EEFF !important; border: 1px solid #C0CCEE !important; }
+
+  /* ── Tables ── */
+  .data-table { page-break-inside: avoid; border: 1px solid #cccccc !important; }
+  .data-table thead th {
+    background-color: #2855FF !important;
+    color: #ffffff !important;
+    font-size: 8pt !important;
+    padding: 6pt 10pt !important;
+  }
+  .data-table tbody td {
+    font-size: 9pt !important;
+    padding: 6pt 10pt !important;
+    color: #333333 !important;
+    border-bottom: 1px solid #dddddd !important;
+  }
+  .data-table tbody tr { background-color: #ffffff !important; }
+  .data-table tbody tr:nth-child(even) { background-color: #F5F5F8 !important; }
+  .data-table tbody tr td strong { color: #111111 !important; }
+
+  /* ── Alerts ── */
+  .alert { page-break-inside: avoid; font-size: 9pt !important; }
+
+  .alert-danger  { background-color: #FFF0F0 !important; border: 1px solid #E8AAAA !important; color: #993333 !important; }
+  .alert-success { background-color: #F0FFF0 !important; border: 1px solid #AAD8AA !important; color: #336633 !important; }
+  .alert-blue    { background-color: #EEF2FF !important; border: 1px solid #AABBDD !important; color: #335599 !important; }
+  .alert-amber   { background-color: #FFFAF0 !important; border: 1px solid #DDCC99 !important; color: #886622 !important; }
+
+  .alert-danger  .alert-icon { background-color: #FFE0E0 !important; color: #CC3333 !important; }
+  .alert-success .alert-icon { background-color: #E0FFE0 !important; color: #339933 !important; }
+  .alert-blue    .alert-icon { background-color: #E0E8FF !important; color: #3355BB !important; }
+  .alert-amber   .alert-icon { background-color: #FFF0D0 !important; color: #BB8800 !important; }
+
+  /* ── Split columns ── */
+  .split { page-break-inside: avoid; }
+  .split-bad  { background-color: #FFF5F5 !important; border: 1px solid #E0AAAA !important; }
+  .split-good { background-color: #F5FFF5 !important; border: 1px solid #AAD8AA !important; }
+  .split-bad  h4 { color: #CC3333 !important; }
+  .split-good h4 { color: #339933 !important; }
+  .split-bad  li::before { color: #CC3333 !important; }
+  .split-good li::before { color: #339933 !important; }
+  .split li { color: #333333 !important; }
+
+  /* ── Prompt blocks ── */
+  .prompt-block {
+    background-color: #F4F4F8 !important;
+    border: 1px solid #D0D0D8 !important;
+    border-left: 3px solid #2855FF !important;
+    color: #333333 !important;
+    font-size: 9pt !important;
+    page-break-inside: avoid;
+  }
+  .prompt-block .prompt-label { color: #2855FF !important; }
+
+  /* ── Formula banner ── */
+  .formula-banner { page-break-inside: avoid; }
+  .formula-item { font-size: 9pt !important; color: #ffffff !important; }
+  .formula-item:nth-child(1) { background-color: #1A3FCC !important; }
+  .formula-item:nth-child(2) { background-color: #2855FF !important; }
+  .formula-item:nth-child(3) { background-color: #4A72FF !important; }
+  .formula-item:nth-child(4) { background-color: #6B8AFF !important; }
+
+  /* ── Steps ── */
+  .step { border-color: #dddddd !important; page-break-inside: avoid; }
+  .step::before {
+    background-color: #E8EEFF !important;
+    border: 1px solid #AABBDD !important;
+    color: #2855FF !important;
+  }
+  .step-content h4 { color: #222222 !important; }
+  .step-content p  { color: #555555 !important; }
+
+  /* ── Checklist ── */
+  .checklist li { color: #333333 !important; border-color: #dddddd !important; }
+  .checklist li::before { color: #2855FF !important; }
+
+  /* ── Content list ── */
+  .content-list li { color: #333333 !important; }
+  .content-list li::before { background-color: #2855FF !important; }
+
+  /* ── Tool badges ── */
+  .tool-badge {
+    background-color: #E8EEFF !important;
+    border: 1px solid #C0CCEE !important;
+    color: #2855FF !important;
+  }
+
+  /* ── Dividers ── */
+  .divider { background-color: #dddddd !important; height: 1px !important; }
+
+  /* ── Footer ── */
+  footer { border-top: 1px solid #dddddd !important; color: #888888 !important; padding: 16pt 0 !important; }
+  footer .footer-logo { color: #222222 !important; }
+
+  /* ── Bold text ── */
+  b, strong { color: #111111 !important; }
+
+  /* ── Partner logos ── */
+  .header-logos { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .logos-divider { background-color: #cccccc !important; }
+  .partner-logo-img { height: 60px !important; }
+
+  /* ── Avoid orphans/widows ── */
+  h2, h3, h4 { orphans: 3; widows: 3; page-break-after: avoid; }
+  p { orphans: 2; widows: 2; }
+}
+
 /* ── Tool badges ── */
 .tool-badge {
   display: inline-flex;
@@ -704,9 +944,15 @@ b, strong { color: var(--white); font-weight: 600; }
 
   <div class="hero-badge"><span class="dot"></span> Конспект курса</div>
 
-  <div class="hero-logo">
-    <span class="hero-logo-text">Горький_</span>
-    <span class="hero-logo-sub">Тех</span>
+  <div class="header-logos">
+    <div class="hero-logo" style="margin-bottom:0;">
+      <span class="hero-logo-text">Горький_</span>
+      <span class="hero-logo-sub">Тех</span>
+    </div>
+    <div class="logos-divider"></div>
+    <img src="kupno.png" alt="КУПНО" class="partner-logo-img">
+    <div class="logos-divider"></div>
+    <img src="mincifry.png" alt="Минцифры Нижегородской области" class="partner-logo-img">
   </div>
 
   <h1>ИИ для государственных и&nbsp;муниципальных <span class="accent">служащих НО</span></h1>
@@ -783,6 +1029,7 @@ b, strong { color: var(--white); font-weight: 600; }
       <tr><td><strong>GigaChat</strong> (giga.chat)</td><td>Универсальный чат-бот — основной инструмент</td><td>Бесплатно</td></tr>
       <tr><td><strong>Qwen</strong> (qwen.ai)</td><td>Отлично для таблиц и формул Excel</td><td>Бесплатно</td></tr>
       <tr><td><strong>TurboScribe</strong> (turboscribe.ai)</td><td>Расшифровка аудиозаписей до 30 мин</td><td>Бесплатно*</td></tr>
+      <tr><td><strong>GigaChat</strong> (транскрибация)</td><td>Расшифровка аудио до 30 МБ</td><td>Бесплатно</td></tr>
     </tbody>
   </table>
   <p style="font-size:13px; color:var(--gray-500)">* До 3 файлов в день</p>
@@ -1066,6 +1313,7 @@ b, strong { color: var(--white); font-weight: 600; }
       <div class="step-content">
         <h4>Расшифровка</h4>
         <p><span class="tool-badge">TurboScribe</span> — загружаете аудио (MP3, WAV, MP4), получаете текст. До 30 мин на файл, до 3 файлов в день</p>
+        <p style="margin-top:8px;"><span class="tool-badge">GigaChat</span> — также подходит для транскрибации аудио. Ограничение файла — до 30 МБ. Удобен тем, что дальнейшую обработку текста можно делать в том же чате</p>
       </div>
     </div>
     <div class="step">
